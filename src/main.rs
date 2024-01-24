@@ -2,6 +2,7 @@ use std::env;
 use std::process;
 
 mod day1;
+mod utils;
 
 use day1::*;
 
