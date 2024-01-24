@@ -4,27 +4,6 @@ use std::io::{self, BufRead};
 use std::path::Path;
 use std::collections::HashMap;
 
-pub struct Config {
-    query: String,
-    file_path: String,
-}
-
-impl Config {
-    pub fn build(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            return Err("not enough arguments");
-        }
-
-        let query = args[1].clone();
-        let file_path = args[2].clone();
-    
-        Ok(Config {
-            query,
-            file_path,
-        })
-    }
-}
-
 fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
 where P: AsRef<Path> {
     let file = File::open(filename)?;
@@ -59,8 +38,8 @@ fn find_all_indexes(line: &str, string: &str) -> Vec<usize> {
     indexes
 }
 
-fn day1(config: Config, words_to_digits: &HashMap<&str, &str>) -> Result<(), Box<dyn Error>> {
-    if let Ok(lines) = read_lines(config.file_path) {
+fn day1(file_path: String, words_to_digits: &HashMap<&str, &str>) -> Result<(), Box<dyn Error>> {
+    if let Ok(lines) = read_lines(file_path) {
         let mut sum: u32 = 0;
 
         for line in lines.flatten() {
@@ -115,9 +94,9 @@ fn day1(config: Config, words_to_digits: &HashMap<&str, &str>) -> Result<(), Box
     Ok(())
 }
 
-pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
+pub fn run(file_path: String) -> Result<(), Box<dyn Error>> {
     let words_to_digits = words_to_digits();
-    day1(config, &words_to_digits)?;
+    day1(file_path, &words_to_digits)?;
 
     Ok(())
 }
