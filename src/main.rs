@@ -1,9 +1,9 @@
 use std::env;
 use std::process;
 
-mod lib;
+mod day1;
 
-use lib::*;
+use day1::*;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
